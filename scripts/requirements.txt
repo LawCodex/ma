@@ -1,0 +1,5 @@
+requests
+lxml
+beautifulsoup4
+pypdf
+# system: poppler-utils (pdftotext), macOS textutil for legacy .doc
