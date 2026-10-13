@@ -68,9 +68,15 @@ captures of the official documents** were used (each file records the original U
   reversed word order, duplicated "bold" glyph runs). See `scripts/ma_text.py:acceptable()`.
 * Jurisprudence, circulars, treaties not attached to an approving dahir/law, and individual regulatory
   decisions (arrêtés) are out of scope.
+* Of the ~1,490 archived documents downloaded, ~290 were scanned/empty, ~560 failed the text-quality
+  checks, ~105 were not legislation (court decisions, circulars, treaties, forms) or could not be
+  identified, and duplicates (same act in several sources) were merged, keeping the most recent
+  consolidation.
 * Arabic PDF extraction: text comes from pypdf (logical order, correct ligatures); missing word
-  separators are restored using poppler's tokenisation of the same page. Minor bidi artefacts
-  (e.g. punctuation placement around numbers) remain in some PDF-derived files.
+  separators are restored using poppler's tokenisation of the same page. When that text fails the
+  quality checks, poppler's text is used instead with common bidi misplacements repaired (dates
+  "1432 (29 يوليو 2011)", Arabic comma spacing). Minor bidi artefacts (punctuation placement around
+  numbers, mirrored brackets) remain in some PDF-derived files; DOCX/HTML-derived files are clean.
 * Status (in force / repealed) is not provided by the sources and is recorded as `unknown`.
 
 ## Licence
