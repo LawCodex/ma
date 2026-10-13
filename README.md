@@ -8,21 +8,22 @@ and **French** (`fr/`), as published by the Ministry of Justice legal portal *Ad
 Most texts are **consolidated versions** ("صيغة محينة بتاريخ …" / "version consolidée") prepared
 by the Ministry of Justice; the consolidation date is in `last_amended`.
 
-**Total: 177 texts** (retrieved 2026-10-13).
+**Total: 438 texts** (retrieved 2026-10-13).
 
 | Directory | Files |
 |---|---|
-| `ar/codes/` | 10 |
-| `ar/dahirs/` | 32 |
-| `ar/decree-laws/` | 3 |
-| `ar/decrees/` | 6 |
-| `ar/laws/` | 87 |
-| `ar/organic-laws/` | 5 |
-| `fr/codes/` | 7 |
+| `ar/codes/` | 20 |
+| `ar/constitution/` | 1 |
+| `ar/dahirs/` | 87 |
+| `ar/decree-laws/` | 4 |
+| `ar/decrees/` | 14 |
+| `ar/laws/` | 225 |
+| `ar/organic-laws/` | 17 |
+| `fr/codes/` | 8 |
 | `fr/constitution/` | 1 |
-| `fr/dahirs/` | 3 |
-| `fr/lois/` | 20 |
-| `fr/lois-organiques/` | 3 |
+| `fr/dahirs/` | 11 |
+| `fr/lois/` | 46 |
+| `fr/lois-organiques/` | 4 |
 
 ## Structure
 

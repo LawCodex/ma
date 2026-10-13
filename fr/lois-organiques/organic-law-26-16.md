@@ -1,5 +1,5 @@
 ---
-title: "BULLETIN OFFICIEL"
+title: "No 7000 – 20 kaada 1442 (1er-7-2021)"
 identifier: "26-16"
 type: organic_law
 jurisdiction: ma
@@ -12,7 +12,7 @@ archived: 2023-02-03
 retrieved: 2026-10-13
 ---
 
-# BULLETIN OFFICIEL
+# No 7000 – 20 kaada 1442 (1er-7-2021)
 
 BULLETIN OFFICIEL
 

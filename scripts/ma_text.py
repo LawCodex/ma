@@ -192,6 +192,38 @@ def common_share(lines):
     return sum(1 for w in words if w in COMMON or (w[:1] == "و" and w[1:] in COMMON)) / len(words)
 
 
+def pdf_lines_poppler(path):
+    """Alternative Arabic extraction: poppler text (logical order) with reversed ligatures repaired
+    against pypdf's text of the same page."""
+    pop = pdf_pages_poppler(path)
+    refs = pdf_pages_pypdf(path) or []
+    out = []
+    for i, pg in enumerate(pop):
+        pg = unicodedata.normalize("NFKC", BIDI.sub("", pg))
+        if i < len(refs) and AR.search(pg):
+            pg = fix_tokens(pg, refs[i])
+        for line in pg.split("\n"):
+            out.append(fix_poppler_line(clean_line(line)))
+        out.append("\f")
+    return out
+
+
+def fix_poppler_line(line):
+    """Undo the most common bidi misplacements of poppler output in Arabic lines."""
+    if not AR.search(line):
+        return line
+    line = re.sub(r"([\u0621-\u064a])(\d)", r"\1 \2", line)
+    line = re.sub(r"(\d)([\u0621-\u064a])", r"\1 \2", line)
+    # "29) 1432 يوليو (2011"  ->  "1432 (29 يوليو 2011)"
+    line = re.sub(r"(\d{1,2})\)\s*(1[34]\d\d)\s+([\u0621-\u064a]+)\s*\((\d{4})", r"\2 (\1 \3 \4)", line)
+    # misplaced space before Arabic comma/semicolon: "دستورية ،ديمقراطية" -> "دستورية، ديمقراطية"
+    line = re.sub(r"\s([،؛])(?=\S)", r"\1 ", line)
+    line = line.replace("االله", "الله")
+    if line.startswith(")") and line.endswith("("):
+        line = "(" + line[1:-1] + ")"
+    return re.sub(r"[ ]{2,}", " ", line)
+
+
 def quality(lines):
     """Rough garble score for Arabic text: share of Arabic words with Latin letters inside,
     replacement chars, or isolated single letters."""

@@ -1,10 +1,10 @@
 ---
-title: "Dahir n° 1-11-91 du 27 chaabane 1432 (29 juillet 2011)"
+title: "Constitution du Royaume du Maroc"
 identifier: "2011"
 type: constitution
 jurisdiction: ma
 language: fr
-date: 2011-06-17
+date: 2011-07-29
 status: in_force
 source: "https://adala.justice.gov.ma/production/constitution/fr/Constitution.pdf"
 archived_source: "https://web.archive.org/web/20220127124916/https://adala.justice.gov.ma/production/constitution/fr/Constitution.pdf"
@@ -12,7 +12,7 @@ archived: 2022-01-27
 retrieved: 2026-10-13
 ---
 
-# Dahir n° 1-11-91 du 27 chaabane 1432 (29 juillet 2011)
+# Constitution du Royaume du Maroc
 
 Bulletin officiel n° 5964 bis du 28 chaabane 1432 (30/07/2011)
 

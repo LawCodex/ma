@@ -162,8 +162,7 @@ def classify(head, title, lang, tag):
         return "dahir", dah.group(1)
     if dec:
         return "decree", dec.group(1)
-    if order:
-        return "order", order.group(1)
+    # ministerial orders (قرار/arrêté) are out of scope (and "قرار" also matches court decisions)
     return None, None
 
 
@@ -261,6 +260,16 @@ def main():
         lang = "ar" if n_ar > 0.3 * len(re.findall(r"\w", alltext)) else "fr"
         if lang == "ar":
             ok, why = ma_text.acceptable(nonempty)
+            if not ok and from_pdf:
+                alt = ma_text.pdf_lines_poppler(path)
+                alt_ne = [x for x in alt if x.strip() and not PAGE.match(x.strip())]
+                ok2, why2 = ma_text.acceptable(alt_ne)
+                alt_txt = "\n".join(alt_ne)
+                misordered = len(re.findall(r"\d\(|\)\d|\d\)\s*1[34]\d\d", alt_txt))
+                if ok2 and misordered <= max(2, len(alt_txt) // 30000):
+                    lines, nonempty, ok = alt, alt_ne, True
+                    alltext = "\n".join(nonempty)
+                    print("USING poppler text (pypdf: %s)" % why, d["key"], file=log)
             if not ok:
                 print("SKIP quality", why, d["key"], file=log)
                 continue
@@ -301,8 +310,10 @@ def main():
         if re.search(r"اتفاق|اتفاقية|Convention|Accord", title) and typ not in ("constitution",):
             # treaties are out of scope; keep only if the heading is a law/dahir approving it
             pass
+        if typ == "constitution":
+            title = "دستور المملكة المغربية" if lang == "ar" else "Constitution du Royaume du Maroc"
         docs.append({"d": d, "lines": lines, "from_pdf": from_pdf, "lang": lang, "type": typ, "num": num,
-                     "title": title, "date": parse_date(datesrc, lang) or parse_date(dahir_heading(nonempty), lang), "cons": consolidated(head, lang)})
+                     "title": title, "date": "2011-07-29" if typ == "constitution" else (parse_date(datesrc, lang) or parse_date(dahir_heading(nonempty), lang)), "cons": consolidated(head, lang)})
     # dedupe
     for x in docs:
         if x["type"] == "dahir" and re.match(r"^\d{2,4}\.\d{2}\.1$", x["num"] or ""):
